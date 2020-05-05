@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: asblogapi-service-test
+  labels:
+    app: asblogapi
+    role: ${DEPLOYMENT}
+    env: prod
+spec:
+  type: LoadBalancer
+  selector:
+    app: asblogapi
+    role: ${DEPLOYMENT}
+  ports:
+    - port: 80
+      targetPort: 5000

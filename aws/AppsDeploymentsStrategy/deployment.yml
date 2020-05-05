@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: asblog-deployment-${DEPLOYMENT}
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: asblogapi
+        role: ${DEPLOYMENT}
+    spec:
+      imagePullSecrets:
+      - name: awsecr-cred
+      containers:
+      - name: asblogapi
+        image: 004302033888.dkr.ecr.us-east-2.amazonaws.com/asblog-repo:${IMAGE_TAG}
+        ports:
+        - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
