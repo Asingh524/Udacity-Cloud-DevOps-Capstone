@@ -22,12 +22,13 @@ An Amazon AWS account in order to use ECR et EKS and cloudformation to build the
 A Jenkins up and running in order to build the pipeline ( we use here an ec2 instance on AWS)
 A local machine for the developpers or in the cloud to push modifications to git
 Installing Environment
-To have an environnement fully working, you will have to walk through different steps :
+To have an environnement fully working, you will have to walk through different steps:
 
 Dev environment
 First you have to clone this repository
 
-git clone  
+git clone https://github.com/Asingh524/Udacity-Cloud-DevOps-Capstone.git 
+
 make an virtual environment to be able run the app : it will setup the venv and install dependencies for the app
 
 make setup
@@ -64,7 +65,7 @@ cd aws/network-infra/
 
 Testing the pipeline
 
-Make sure you have a working jenkins with a token on your github repo in order to take changes done by developpers.
+Make sure you have a working jenkins with a token on your github repo in order to take changes done by developers.
 The pipeline is described in the the Jenkinsfile
 Activate the repo scanning by jenkins in order to run automatically the pipeline or run the pipeline manually after changes.
 
@@ -77,20 +78,25 @@ Below are steps performed in the jenkins pipeline
 The blue green is done here with kubernetes pods.
 the first time when pipeline is launched, if there is no deployments already , it will assign to the new deployment an initial color.
 
-Step 1
+Step 1 :
+
 2 pods and a service endpoint as the production env (it is the blue pods) exist,
 the pipeline checks for the inactive color
 
-Step 2
+Step 2 :
+
 When a new version is pushed, the pipeline build a new version , push it to ECR and deploy it as new pods (green pods) on the cluster
 Notice : for the moment only blue pods are exposed by the service ELB .
 
-Step 3
+Step 3 :
+
 The second service is build with the purpose to only test the newly created pods before exposing it,
 Tests are done here before exposing it to the world
 
-Step 4
+Step 4 :
+
 When all tests are done, the pipeline switch the service ELB selector to green to switch the pods exposed.
 
-Step 5
+Step 5 :
+
 If there is no need to rollback, old deployment is deleted
