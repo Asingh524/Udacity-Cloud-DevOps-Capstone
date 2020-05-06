@@ -32,15 +32,19 @@ git clone https://github.com/Asingh524/Udacity-Cloud-DevOps-Capstone.git
 make an virtual environment to be able run the app : it will setup the venv and install dependencies for the app
 
 make setup
+
 test the app
 
 python3 app.py
+
 Build a container if you want from your local (need the installation of Docker)
 
 ./runDocker.sh
+
 Notice : there is no need to build the container from your own : it will be done automatically in the pipeline with jenkins
 
 Amazon ECR
+
 To be able to push a container to a registry - we use here amazon ecr - We have to create it on amazon AWS
 
 ./aws/createECR.sh
@@ -51,17 +55,22 @@ to build the EKS cluster with an complete environment we will do it in 3 steps
 Building the network with CloudFormation : VPC, private an public subnets routing table , nate gateways .....
 
 cd aws/network-infra/
+
 ./create.sh infraFinalProject network.yml network-parameters.json
 
 Building the EKS cluster with aws informations given in the network stack Output
 
 cd aws/network-infra/
+
 ./clusterCreation.sh
 
 Creating the node workers with cloudFormation scripts
 
 cd aws/network-infra/
+
 ./create-noparam.sh finalProject nodeWorkers.yml
+
+
 
 Testing the pipeline
 
@@ -70,6 +79,7 @@ The pipeline is described in the the Jenkinsfile
 Activate the repo scanning by jenkins in order to run automatically the pipeline or run the pipeline manually after changes.
 
 All you need to do is modify the code and push it on your repository and pipeline will run automatically if you set it.
+
 
 Blue Green Deployment :
 
